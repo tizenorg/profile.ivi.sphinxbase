@@ -1,8 +1,8 @@
 Name:       sphinxbase
 Version:    0.7
-Release:    1
+Release:    0
 Group:      System/Libraries
-License:    BSD
+License:    BSD-2-Clause
 URL:        http://www.pocketsphinx.org/
 Summary:    Speech Recognition Engine
 Source:     http://sourceforge.net/projects/cmusphinx/files/%{name}/%{version}/%{name}-%{version}.tar.gz
@@ -35,28 +35,27 @@ Group:          Development/Libraries
 Requires:       %{name}-libs = %{version}-%{release}
 
 %description python
-Python interface to sphinxbase.
+Python interface to sphinxbase package
 
 %prep
 %setup -q
 
 %build
-%configure --disable-static --disable-rpath
-
-make %{?_smp_mflags}
+%reconfigure --disable-static --disable-rpath
+%__make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{python_sitearch}
-make install DESTDIR=$RPM_BUILD_ROOT
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{python_sitearch}
+%make_install DESTDIR=%{buildroot}
+rm -f %{buildroot}%{_libdir}/*.la
 
 # Install the man pages
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
-cp -p doc/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -p doc/*.1 %{buildroot}%{_mandir}/man1
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %post libs -p /sbin/ldconfig
 
@@ -76,7 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING NEWS README
+%license COPYING
+%doc AUTHORS ChangeLog NEWS README
 %{_libdir}/libsphinxad.so.*
 %{_libdir}/libsphinxbase.so.*
 
