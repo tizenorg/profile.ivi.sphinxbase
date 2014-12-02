@@ -33,9 +33,9 @@ CLEANFILES = test*.err test*.out		\
 
 # Disable sphinx_fe tests for now if fixed-point due to imprecision
 if FIXED_POINT
-TESTS = $(srcdir)/test-cepview.sh $(srcdir)/test-sphinx_pitch.sh
+TESTS = test-cepview.sh test-sphinx_pitch.sh
 else
-TESTS = $(srcdir)/test-*.sh
+TESTS = test-*.sh
 endif
 
 EXTRA_DIST += $(TESTS)
