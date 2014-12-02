@@ -1,2 +1,5 @@
+* Tue Dec 02 15:56:23 UTC 2014 - krisztian.litkey@intel.com
+- build-sys: fix from the Yocto guys to build with automake 1.14.1.
+
 * Fri Aug 31 21:47:09 UTC 2012 - jimmy.huang@intel.com
 - Intial import from upstream.
